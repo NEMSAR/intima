@@ -9,191 +9,251 @@
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FAFAFA;
+            background-color: #F8F7FA;
             overflow-x: hidden;
             color: #1F2937;
+            perspective: 1000px;
         }
         
         /* Glassmorphism Premium */
         .glass {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 40px 0 rgba(129, 12, 168, 0.05);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(129, 12, 168, 0.05), inset 0 0 0 1px rgba(255,255,255,0.5);
         }
         
         .glass-dark {
-            background: rgba(45, 3, 59, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(193, 71, 233, 0.2);
-            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(1deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-        
-        .animate-float {
-            animation: float 7s ease-in-out infinite;
-        }
-        
-        .animate-float-delayed {
-            animation: float 8s ease-in-out infinite;
-            animation-delay: 3s;
+            background: rgba(30, 2, 40, 0.85);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(193, 71, 233, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         }
 
-        /* Gradient Text (Pink & Purple) */
-        .gradient-text {
-            background: linear-gradient(135deg, #810CA8, #E100FF);
+        /* Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0; height: 4px;
+            background: linear-gradient(to right, #810CA8, #E100FF, #00E6F2);
+            z-index: 9999; width: 0%;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Shimmer Gradient Text */
+        .text-shimmer {
+            background: linear-gradient(90deg, #810CA8, #E100FF, #810CA8);
+            background-size: 200% auto;
+            color: transparent;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
         }
-        
-        /* Background Orbs (Premium Pink/Purple Palette) */
-        .orb-1 {
-            position: absolute; top: -15%; left: -10%; width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(225, 0, 255, 0.08) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%; z-index: -1;
-        }
-        .orb-2 {
-            position: absolute; top: 30%; right: -15%; width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(129, 12, 168, 0.08) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%; z-index: -1;
-        }
-        .orb-3 {
-            position: absolute; bottom: -10%; left: 15%; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(193, 71, 233, 0.08) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%; z-index: -1;
-        }
-        
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes shimmer {
+            to { background-position: 200% center; }
         }
 
-        /* Custom Scrollbar for elegance */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Morphing Organic Blobs (Bio-Intelligence Vibe) */
+        .blob {
+            position: absolute;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: morph 12s ease-in-out infinite alternate;
+        }
+        .blob-1 { top: -10%; left: -5%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(225,0,255,0.15) 0%, transparent 70%); animation-delay: 0s; }
+        .blob-2 { top: 40%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(129,12,168,0.15) 0%, transparent 70%); animation-delay: -4s; }
+        .blob-3 { bottom: -20%; left: 20%; width: 70vw; height: 50vw; background: radial-gradient(circle, rgba(0,230,242,0.1) 0%, transparent 70%); animation-delay: -8s; }
+
+        @keyframes morph {
+            0% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: scale(1) translate(0, 0) rotate(0deg); }
+            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: scale(1.1) translate(50px, -50px) rotate(120deg); }
+            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; transform: scale(0.9) translate(-30px, 30px) rotate(240deg); }
+            100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: scale(1) translate(0, 0) rotate(360deg); }
+        }
+
+        /* Orbiting Animation */
+        .orbit-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .orbit-ring {
+            position: absolute; border: 1px dashed rgba(193, 71, 233, 0.4); border-radius: 50%;
+            animation: spin linear infinite;
+        }
+        .orbit-item { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); }
+        .orbit-ring-1 { width: 120%; height: 120%; animation-duration: 20s; }
+        .orbit-ring-2 { width: 180%; height: 180%; animation-duration: 35s; animation-direction: reverse; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Glowing Pulse Rings */
+        .pulse-ring {
+            position: absolute; border-radius: 50%;
+            border: 2px solid #E100FF; opacity: 0;
+            animation: ringPulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        .pulse-ring:nth-child(2) { animation-delay: 1s; }
+        .pulse-ring:nth-child(3) { animation-delay: 2s; }
+        @keyframes ringPulse {
+            0% { transform: scale(0.5); opacity: 0.8; border-width: 3px; }
+            100% { transform: scale(2.5); opacity: 0; border-width: 0px; }
+        }
+
+        /* Magic Border Gradient Hover */
+        .magic-border { position: relative; overflow: hidden; }
+        .magic-border::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, rgba(225, 0, 255, 0.3), transparent 30%);
+            animation: rotate 4s linear infinite; opacity: 0; transition: opacity 0.5s;
+        }
+        .magic-border:hover::before { opacity: 1; }
+        .magic-border-content { position: relative; background: inherit; border-radius: inherit; z-index: 1; margin: 2px; height: calc(100% - 4px); }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+        /* Floating Base */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        /* Advanced Staggered Reveal */
+        .reveal { opacity: 0; transform: translateY(50px) scale(0.95); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+        
+        /* 3D Tilt Wrapper */
+        .tilt-wrapper { transform-style: preserve-3d; perspective: 1500px; }
+        .tilt-element { transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform-style: preserve-3d; }
+        .tilt-pop { transform: translateZ(40px); }
+
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #FAFAFA; }
-        ::-webkit-scrollbar-thumb { background: #E5B8F4; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #C147E9; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(#810CA8, #E100FF); border-radius: 10px; }
     </style>
 </head>
 <body class="antialiased relative">
     
-    <!-- Orbs Decor -->
-    <div class="orb-1"></div>
-    <div class="orb-2"></div>
-    <div class="orb-3"></div>
+    <div id="scroll-progress"></div>
+
+    <!-- Background Bio-Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-500 py-2" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white shadow-lg">
-                        <i class="fa-solid fa-dna text-xl"></i>
+            <div class="glass rounded-full px-6 py-3 flex justify-between items-center mx-auto transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                <div class="flex items-center gap-3 tilt-wrapper">
+                    <div class="tilt-element w-10 h-10 rounded-full bg-gradient-to-tr from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(225,0,255,0.4)]">
+                        <i class="fa-solid fa-dna text-xl animate-pulse"></i>
                     </div>
-                    <span class="font-bold text-2xl tracking-tight text-[#2D033B]">Intima<span class="text-[#C147E9]">Science</span></span>
+                    <span class="font-extrabold text-2xl tracking-tight text-[#2D033B]">Intima<span class="text-[#C147E9]">Science</span></span>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#introduccion" class="text-sm font-semibold text-gray-600 hover:text-[#C147E9] transition">Fundamentos</a>
-                    <a href="#innovacion" class="text-sm font-semibold text-gray-600 hover:text-[#C147E9] transition">Innovación Científica</a>
-                    <a href="#vision" class="text-sm font-semibold text-gray-600 hover:text-[#C147E9] transition">Visión Clínica</a>
-                    <a href="#propuesta" class="text-sm font-semibold text-gray-600 hover:text-[#C147E9] transition">Modelo Colaborativo</a>
+                <div class="hidden md:flex space-x-10">
+                    <a href="#introduccion" class="text-sm font-bold text-gray-600 hover:text-[#C147E9] transition-colors relative group">
+                        Fundamentos
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#C147E9] transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#innovacion" class="text-sm font-bold text-gray-600 hover:text-[#C147E9] transition-colors relative group">
+                        Innovación Científica
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#C147E9] transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#vision" class="text-sm font-bold text-gray-600 hover:text-[#C147E9] transition-colors relative group">
+                        Visión Clínica
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#C147E9] transition-all group-hover:w-full"></span>
+                    </a>
                 </div>
-                <!-- Removed Action Buttons to keep it strictly as an executive presentation -->
             </div>
         </div>
     </nav>
 
     <!-- 1. Hero / Introducción -->
-    <section id="introduccion" class="pt-32 pb-20 lg:pt-48 lg:pb-24 overflow-hidden relative">
+    <section id="introduccion" class="pt-40 pb-24 lg:pt-56 lg:pb-32 overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
                 
-                <div class="lg:col-span-7 text-center lg:text-left reveal active">
-                    <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass mb-6 border-[#C147E9]/30 text-sm font-semibold text-[#810CA8] shadow-sm">
-                        <i class="fa-solid fa-microscope"></i>
-                        Farmacia Magistral, Bioquímica y Ginecología
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="reveal" style="transition-delay: 100ms;">
+                        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass mb-8 border-[#C147E9]/40 text-xs font-bold text-[#810CA8] uppercase tracking-wider shadow-sm transform hover:scale-105 transition">
+                            <span class="relative flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E100FF] opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-[#E100FF]"></span>
+                            </span>
+                            Farmacia Magistral, Bioquímica y Ginecología
+                        </div>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-[#2D033B]">
-                        Ciencia regenerativa para la <span class="gradient-text">Salud Íntima Femenina</span>
-                    </h1>
-                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                        Este proyecto nace de la unión de dos disciplinas complementarias y de una misma visión: ofrecer alternativas innovadoras combinando ciencia, biotecnología y formulación personalizada. 
-                    </p>
-                    <p class="text-md text-gray-500 mb-8 leading-relaxed">
-                        Observamos una necesidad clínica creciente. Cada vez más mujeres consultan por <b>sequedad vaginal, alteraciones de microbiota, molestias recurrentes, cambios posparto y perimenopausia</b>, evidenciando una disminución en la calidad de los tejidos que impacta su bienestar.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#innovacion" class="px-8 py-4 rounded-full text-white font-bold shadow-lg shadow-[#810CA8]/30 bg-gradient-to-r from-[#810CA8] to-[#E100FF] hover:shadow-xl transition transform hover:-translate-y-1">
-                            Descubrir el Enfoque <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
+                    <div class="reveal" style="transition-delay: 200ms;">
+                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1] text-[#2D033B]">
+                            Ciencia regenerativa para la <br> <span class="text-shimmer">Salud Íntima Femenina</span>
+                        </h1>
+                    </div>
+                    <div class="reveal" style="transition-delay: 300ms;">
+                        <p class="text-xl text-gray-600 mb-6 leading-relaxed font-light">
+                            Nuestra visión: ofrecer alternativas innovadoras combinando ciencia, biotecnología y formulación personalizada para el cuidado integral.
+                        </p>
+                        <p class="text-md text-gray-500 mb-10 leading-relaxed max-w-2xl">
+                            Abordamos necesidades clínicas crecientes: <b>sequedad vaginal, alteraciones de microbiota, cambios posparto y perimenopausia</b>, enfocándonos en la calidad de los tejidos y el ecosistema biológico.
+                        </p>
                     </div>
                 </div>
                 
-                <div class="lg:col-span-5 mt-16 lg:mt-0 relative">
+                <div class="lg:col-span-5 mt-20 lg:mt-0 relative tilt-wrapper reveal" style="transition-delay: 400ms;">
                     <!-- Premium 3D Abstract Graphic Representation -->
-                    <div class="relative w-full max-w-lg mx-auto aspect-square flex justify-center items-center">
-                        <!-- Main Glass Card -->
-                        <div class="absolute w-full h-full glass rounded-[2.5rem] p-8 flex flex-col justify-between animate-float z-20 border-white/80 shadow-2xl">
-                            <div class="flex justify-between items-start">
-                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#E100FF] to-[#810CA8] flex items-center justify-center text-white shadow-[0_10px_20px_rgba(225,0,255,0.3)]">
-                                    <i class="fa-solid fa-vial-virus text-2xl"></i>
+                    <div class="tilt-element relative w-full max-w-lg mx-auto aspect-square flex justify-center items-center">
+                        
+                        <!-- Orbiting System -->
+                        <div class="absolute inset-0 orbit-container tilt-pop">
+                            <div class="orbit-ring orbit-ring-1">
+                                <div class="orbit-item w-10 h-10 glass rounded-full flex items-center justify-center text-[#E100FF] shadow-lg"><i class="fa-solid fa-bacterium"></i></div>
+                            </div>
+                            <div class="orbit-ring orbit-ring-2">
+                                <div class="orbit-item w-12 h-12 glass rounded-full flex items-center justify-center text-[#810CA8] shadow-lg"><i class="fa-solid fa-vial"></i></div>
+                            </div>
+                        </div>
+
+                        <!-- Main Central Glass Card -->
+                        <div class="absolute w-[85%] h-[85%] glass rounded-[3rem] p-8 flex flex-col justify-between z-20 border-white shadow-[0_20px_50px_rgba(129,12,168,0.15)] overflow-hidden">
+                            <!-- Animated Glow inside card -->
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#E100FF]/20 to-transparent rounded-full mix-blend-multiply blur-2xl animate-pulse"></div>
+                            
+                            <div class="flex justify-between items-start relative z-10 tilt-pop">
+                                <div class="relative w-16 h-16 flex justify-center items-center">
+                                    <div class="pulse-ring inset-0"></div>
+                                    <div class="pulse-ring inset-0"></div>
+                                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#E100FF] to-[#810CA8] flex items-center justify-center text-white shadow-2xl relative z-10">
+                                        <i class="fa-solid fa-microscope text-3xl animate-float"></i>
+                                    </div>
                                 </div>
-                                <span class="bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-xs font-bold text-[#810CA8] shadow-sm border border-[#E5B8F4]">Biotecnología</span>
+                                <span class="bg-white/90 px-4 py-2 rounded-full text-xs font-black tracking-wide text-[#810CA8] shadow-sm border border-[#E5B8F4]/50">BIOTECNOLOGÍA</span>
                             </div>
                             
-                            <div class="space-y-5 mt-8">
+                            <div class="space-y-6 mt-8 relative z-10 tilt-pop">
                                 <div>
-                                    <div class="flex justify-between items-center text-sm font-bold text-[#2D033B] mb-2">
-                                        <span>Restauración Tisular</span>
-                                        <span class="text-[#E100FF]">Plasma Autólogo</span>
+                                    <div class="flex justify-between items-end mb-2">
+                                        <span class="text-sm font-bold text-[#2D033B]">Restauración Tisular</span>
+                                        <span class="text-xs font-bold text-[#E100FF] bg-[#E100FF]/10 px-2 py-1 rounded">Plasma Autólogo</span>
                                     </div>
-                                    <div class="w-full bg-gray-100 rounded-full h-2.5 shadow-inner">
-                                        <div class="bg-gradient-to-r from-[#810CA8] to-[#E100FF] h-2.5 rounded-full w-[100%]"></div>
+                                    <div class="w-full bg-gray-100/50 rounded-full h-3 overflow-hidden shadow-inner">
+                                        <div class="bg-gradient-to-r from-[#810CA8] to-[#E100FF] h-full w-[100%] rounded-full relative">
+                                            <div class="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite]"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between items-center text-sm font-bold text-[#2D033B] mb-2">
-                                        <span>Equilibrio Ecosistema</span>
-                                        <span class="text-[#C147E9]">Microbiota</span>
+                                    <div class="flex justify-between items-end mb-2">
+                                        <span class="text-sm font-bold text-[#2D033B]">Equilibrio Ecosistema</span>
+                                        <span class="text-xs font-bold text-[#C147E9] bg-[#C147E9]/10 px-2 py-1 rounded">Microbiota</span>
                                     </div>
-                                    <div class="w-full bg-gray-100 rounded-full h-2.5 shadow-inner">
-                                        <div class="bg-gradient-to-r from-[#C147E9] to-[#E5B8F4] h-2.5 rounded-full w-[85%]"></div>
+                                    <div class="w-full bg-gray-100/50 rounded-full h-3 overflow-hidden shadow-inner">
+                                        <div class="bg-gradient-to-r from-[#C147E9] to-[#E5B8F4] h-full w-[85%] rounded-full relative">
+                                            <div class="absolute inset-0 bg-white/20 animate-[shimmer_2.5s_infinite]"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="mt-8 p-5 rounded-2xl bg-gradient-to-r from-[#810CA8]/5 to-[#E100FF]/10 border border-[#C147E9]/20 backdrop-blur-md">
-                                <h4 class="font-bold text-[#2D033B] text-sm mb-2"><i class="fa-solid fa-check-circle text-[#C147E9] mr-1"></i> Formulación Magistral</h4>
-                                <p class="text-xs text-gray-600 leading-relaxed">Cremas vaginales personalizadas bajo estricta indicación y seguimiento médico.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Floating Elements -->
-                        <div class="absolute -top-6 -right-6 w-28 h-28 glass rounded-full animate-float-delayed z-30 flex items-center justify-center text-[#E100FF] text-3xl shadow-xl border-white/60">
-                            <i class="fa-solid fa-leaf"></i>
-                        </div>
-                        <div class="absolute -bottom-10 -left-6 w-56 h-28 glass rounded-3xl animate-float z-10 flex items-center justify-center border-white/60 shadow-xl p-5">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-white flex items-center justify-center text-[#810CA8] shadow-md">
-                                    <i class="fa-solid fa-droplet"></i>
-                                </div>
-                                <div class="text-sm font-bold text-[#2D033B] leading-tight">Hidratación<br><span class="text-gray-500 font-medium text-xs">de Mucosas</span></div>
                             </div>
                         </div>
                     </div>
@@ -203,67 +263,87 @@
     </section>
 
     <!-- 2. Detalle de la Innovación -->
-    <section id="innovacion" class="py-24 relative bg-white/40 border-y border-[#E5B8F4]/30 backdrop-blur-sm">
+    <section id="innovacion" class="py-32 relative border-y border-[#E5B8F4]/20 z-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-[#FAFAFA]/80 backdrop-blur-md -z-10"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-4xl mx-auto mb-16 reveal">
-                <h2 class="text-3xl font-extrabold text-[#2D033B] mb-4">Innovación Terapéutica Integral</h2>
-                <p class="text-gray-600 text-lg">Nuestro primer objetivo es la creación de formulaciones diseñadas para promover un entorno fisiológico favorable para el mantenimiento de la función y el bienestar vulvovaginal.</p>
+            <div class="text-center max-w-4xl mx-auto mb-20 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-[#C147E9] uppercase mb-3">Pilares Terapéuticos</h2>
+                <h3 class="text-4xl md:text-5xl font-extrabold text-[#2D033B] mb-6">Innovación Terapéutica Integral</h3>
+                <p class="text-gray-600 text-lg">Formulaciones diseñadas para promover un entorno fisiológico favorable para el mantenimiento de la función vulvovaginal.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 reveal">
-                <div class="glass p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-[#810CA8]">
-                    <div class="w-14 h-14 rounded-full bg-[#810CA8]/10 flex items-center justify-center text-[#810CA8] text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-mortar-pestle"></i>
+            <div class="grid md:grid-cols-3 gap-8 tilt-wrapper">
+                
+                <!-- Card 1 -->
+                <div class="magic-border rounded-[2rem] reveal" style="transition-delay: 100ms;">
+                    <div class="magic-border-content glass p-10 flex flex-col items-center text-center tilt-element transform hover:-translate-y-4 transition-transform duration-500">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#810CA8]/10 to-transparent flex items-center justify-center text-[#810CA8] text-4xl mb-8 shadow-inner border border-[#810CA8]/20">
+                            <i class="fa-solid fa-mortar-pestle animate-float"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#2D033B] mb-4">Formulación <br>Personalizada</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Cremas vaginales elaboradas a medida con ingredientes de origen natural, bajo estricta indicación médica.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-[#2D033B] mb-3">Formulación Personalizada</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Cremas vaginales elaboradas a medida con ingredientes de origen natural. Abordaje clínico diseñado según las necesidades individuales de cada paciente.</p>
                 </div>
                 
-                <div class="glass p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-[#C147E9]">
-                    <div class="w-14 h-14 rounded-full bg-[#C147E9]/10 flex items-center justify-center text-[#C147E9] text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-bacterium"></i>
+                <!-- Card 2 -->
+                <div class="magic-border rounded-[2rem] reveal" style="transition-delay: 200ms;">
+                    <div class="magic-border-content glass p-10 flex flex-col items-center text-center tilt-element transform hover:-translate-y-4 transition-transform duration-500">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#C147E9]/10 to-transparent flex items-center justify-center text-[#C147E9] text-4xl mb-8 shadow-inner border border-[#C147E9]/20">
+                            <i class="fa-solid fa-dna animate-float" style="animation-delay: 1s"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#2D033B] mb-4">Equilibrio del <br>Ecosistema</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Enriquecidas con componentes para favorecer la microbiota vulvovaginal, incluyendo probióticos seleccionados.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-[#2D033B] mb-3">Equilibrio del Ecosistema</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Enriquecidas con componentes destinados a favorecer la microbiota vulvovaginal, incluyendo probióticos seleccionados específicamente.</p>
                 </div>
 
-                <div class="glass p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-[#E100FF] relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-[#E100FF]/10 to-transparent rounded-full"></div>
-                    <div class="w-14 h-14 rounded-full bg-[#E100FF]/10 flex items-center justify-center text-[#E100FF] text-2xl mb-6 group-hover:scale-110 transition-transform relative z-10">
-                        <i class="fa-solid fa-kit-medical"></i>
+                <!-- Card 3 -->
+                <div class="magic-border rounded-[2rem] reveal" style="transition-delay: 300ms;">
+                    <div class="magic-border-content glass p-10 flex flex-col items-center text-center tilt-element transform hover:-translate-y-4 transition-transform duration-500 relative overflow-hidden">
+                        <!-- BG Glow for Premium feel -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#E100FF]/5 to-transparent z-0"></div>
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#E100FF]/20 to-transparent flex items-center justify-center text-[#E100FF] text-4xl mb-8 shadow-inner border border-[#E100FF]/30 relative z-10">
+                            <i class="fa-solid fa-kit-medical animate-float" style="animation-delay: 2s"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#2D033B] mb-4 relative z-10">Plasma <br>Autólogo</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed relative z-10">Factores biológicos asociados a procesos de reparación y regeneración tisular en protocolos supervisados.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-[#2D033B] mb-3 relative z-10">Plasma Autólogo</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed relative z-10">Aprovechamiento de los factores biológicos asociados a procesos de reparación y regeneración tisular en protocolos supervisados.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 3. Visión Clínica -->
-    <section id="vision" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex gap-16 items-center">
-                <div class="lg:w-1/2 mb-12 lg:mb-0 reveal">
+    <section id="vision" class="py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:flex gap-20 items-center tilt-wrapper">
+                
+                <div class="lg:w-1/2 mb-16 lg:mb-0 reveal tilt-element" style="transition-delay: 100ms;">
                     <div class="relative">
-                        <!-- Decorative background frame -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-[#810CA8] to-[#E100FF] rounded-[3rem] transform rotate-3 opacity-20"></div>
-                        <div class="glass p-10 rounded-[3rem] relative z-10 border-white/80 shadow-xl">
-                            <h3 class="text-2xl font-bold text-[#2D033B] mb-6 border-b border-gray-100 pb-4">Evolución del Cuidado Íntimo</h3>
+                        <!-- Abstract layered background -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-[#810CA8] to-[#E100FF] rounded-[3rem] transform -rotate-6 scale-105 opacity-30 animate-pulse"></div>
+                        <div class="absolute inset-0 bg-white rounded-[3rem] transform rotate-3 scale-105 opacity-50 backdrop-blur-3xl"></div>
+                        
+                        <div class="glass p-12 rounded-[3rem] relative z-10 border-white shadow-2xl tilt-pop">
+                            <div class="w-16 h-16 rounded-full bg-[#FAFAFA] flex items-center justify-center text-[#810CA8] text-2xl mb-8 shadow-md">
+                                <i class="fa-solid fa-code-compare"></i>
+                            </div>
+                            <h3 class="text-3xl font-extrabold text-[#2D033B] mb-8 border-b border-gray-200 pb-6">Evolución del Enfoque</h3>
                             
-                            <div class="space-y-6">
-                                <div class="flex gap-4 opacity-60">
-                                    <div class="mt-1 text-gray-400"><i class="fa-solid fa-circle-xmark text-xl"></i></div>
+                            <div class="space-y-8">
+                                <div class="flex gap-5 opacity-50 group hover:opacity-100 transition-opacity">
+                                    <div class="mt-1"><i class="fa-solid fa-circle-xmark text-2xl text-gray-400 group-hover:text-red-400 transition-colors"></i></div>
                                     <div>
-                                        <h4 class="font-bold text-gray-500">El Enfoque Tradicional</h4>
-                                        <p class="text-sm text-gray-500 leading-relaxed">Históricamente enfocado en el control de síntomas a corto plazo, dejando en segundo plano la calidad de tejidos, hidratación y microbiota.</p>
+                                        <h4 class="font-bold text-gray-500 group-hover:text-gray-800 transition-colors">El Enfoque Tradicional</h4>
+                                        <p class="text-sm text-gray-500 mt-2 leading-relaxed">Históricamente enfocado en el control de síntomas a corto plazo, dejando en segundo plano la calidad de tejidos y microbiota.</p>
                                     </div>
                                 </div>
                                 
-                                <div class="flex gap-4 p-4 rounded-2xl bg-gradient-to-r from-[#E5B8F4]/20 to-transparent border border-[#C147E9]/30">
-                                    <div class="mt-1 text-[#C147E9]"><i class="fa-solid fa-circle-check text-xl shadow-sm rounded-full"></i></div>
-                                    <div>
-                                        <h4 class="font-bold text-[#810CA8]">Nuestra Visión Regenerativa</h4>
-                                        <p class="text-sm text-gray-700 leading-relaxed font-medium">Abordar la salud desde una mirada amplia y personalizada. Desarrollar herramientas terapéuticas que acompañen los procesos biológicos de manera respetuosa y basada en ciencia.</p>
+                                <div class="flex gap-5 p-6 rounded-3xl bg-gradient-to-r from-[#E5B8F4]/30 to-transparent border border-[#C147E9]/40 transform scale-105 shadow-lg relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#E100FF]/10 rounded-full blur-2xl"></div>
+                                    <div class="mt-1 relative z-10"><i class="fa-solid fa-circle-check text-2xl text-[#C147E9] drop-shadow-md"></i></div>
+                                    <div class="relative z-10">
+                                        <h4 class="font-extrabold text-[#810CA8] text-lg">Visión Regenerativa</h4>
+                                        <p class="text-sm text-gray-800 mt-2 leading-relaxed font-medium">Desarrollar herramientas terapéuticas que acompañen los procesos biológicos de manera personalizada, respetuosa y basada en ciencia.</p>
                                     </div>
                                 </div>
                             </div>
@@ -271,21 +351,25 @@
                     </div>
                 </div>
 
-                <div class="lg:w-1/2 reveal">
-                    <h2 class="text-3xl lg:text-4xl font-extrabold text-[#2D033B] mb-6">Redefiniendo el bienestar de la paciente</h2>
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                <div class="lg:w-1/2 reveal" style="transition-delay: 300ms;">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E100FF]/10 text-[#E100FF] font-bold text-xs mb-6 uppercase tracking-wider border border-[#E100FF]/20">
+                        <i class="fa-solid fa-bullseye"></i> Beneficio Clínico
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-extrabold text-[#2D033B] mb-6 leading-tight">Redefiniendo el bienestar de la paciente</h2>
+                    <p class="text-gray-600 mb-10 text-lg leading-relaxed">
                         Creemos firmemente que la microbiota vaginal, la integridad de los tejidos y el equilibrio biológico local constituyen los pilares fundamentales para la salud femenina.
                     </p>
-                    <div class="grid grid-cols-2 gap-6 mt-10">
-                        <div class="glass p-5 rounded-2xl border-l-4 border-l-[#810CA8]">
-                            <h4 class="text-3xl font-black text-[#810CA8] mb-1"><i class="fa-solid fa-user-check text-2xl mr-2 opacity-50"></i></h4>
-                            <p class="font-bold text-[#2D033B]">Adherencia</p>
-                            <p class="text-xs text-gray-500 mt-1">Fortalecida por el acompañamiento profesional.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="glass p-6 rounded-[2rem] border-t-4 border-t-[#810CA8] transform hover:-translate-y-2 transition-transform shadow-lg group">
+                            <h4 class="text-4xl font-black text-[#810CA8]/20 mb-2 group-hover:text-[#810CA8] transition-colors"><i class="fa-solid fa-user-doctor"></i></h4>
+                            <p class="font-bold text-[#2D033B] text-lg">Adherencia</p>
+                            <p class="text-sm text-gray-500 mt-2">Fortalecida por el acompañamiento profesional continuo.</p>
                         </div>
-                        <div class="glass p-5 rounded-2xl border-l-4 border-l-[#E100FF]">
-                            <h4 class="text-3xl font-black text-[#E100FF] mb-1"><i class="fa-solid fa-bullseye text-2xl mr-2 opacity-50"></i></h4>
-                            <p class="font-bold text-[#2D033B]">Especificidad</p>
-                            <p class="text-xs text-gray-500 mt-1">Tratamientos adaptados a cada situación clínica.</p>
+                        <div class="glass p-6 rounded-[2rem] border-t-4 border-t-[#E100FF] transform hover:-translate-y-2 transition-transform shadow-lg group">
+                            <h4 class="text-4xl font-black text-[#E100FF]/20 mb-2 group-hover:text-[#E100FF] transition-colors"><i class="fa-solid fa-microscope"></i></h4>
+                            <p class="font-bold text-[#2D033B] text-lg">Especificidad</p>
+                            <p class="text-sm text-gray-500 mt-2">Tratamientos magistrales adaptados a cada situación clínica.</p>
                         </div>
                     </div>
                 </div>
@@ -293,93 +377,151 @@
         </div>
     </section>
 
-    <!-- 4. Propuesta Colaborativa (Dark/Premium Executive Section) -->
-    <section id="propuesta" class="py-24 relative glass-dark text-white border-t border-[#E100FF]/20 overflow-hidden">
-        <!-- Abstract glowing elements -->
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#810CA8] rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-pulse"></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-[#E100FF] rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+    <!-- 4. Propuesta Colaborativa (Dark Executive Tech Section) -->
+    <section id="propuesta" class="py-32 relative glass-dark text-white border-t border-[#E100FF]/20 overflow-hidden tilt-wrapper">
+        <!-- Dynamic tech background -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+        
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-[#810CA8] to-[#00E6F2] rounded-full mix-blend-screen filter blur-[150px] opacity-20 animate-[spin_20s_linear_infinite]"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-4xl mx-auto mb-16 reveal">
-                <h2 class="text-3xl lg:text-5xl font-extrabold mb-6 text-white">Construyendo el Futuro Juntos</h2>
-                <p class="text-[#E5B8F4] text-xl font-light">Un puente entre la farmacia magistral, la bioquímica y la ginecología.</p>
+            <div class="text-center max-w-4xl mx-auto mb-24 reveal">
+                <h2 class="text-5xl lg:text-6xl font-extrabold mb-6 text-white tracking-tight">El Modelo Colaborativo</h2>
+                <p class="text-[#E5B8F4] text-2xl font-light">Uniendo Medicina, Farmacia y Bioquímica</p>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-10 reveal">
-                <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-colors">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#C147E9] to-[#810CA8] flex items-center justify-center text-white mb-6">
-                        <i class="fa-solid fa-network-wired text-xl"></i>
+            <div class="grid lg:grid-cols-3 gap-8 relative reveal" style="transition-delay: 200ms;">
+                <!-- Connection lines (hidden on mobile) -->
+                <div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#E100FF]/50 to-transparent -translate-y-1/2 z-0"></div>
+
+                <div class="bg-white/5 backdrop-blur-2xl border border-white/10 p-10 rounded-[2.5rem] tilt-element relative z-10 hover:bg-white/10 transition-colors shadow-2xl group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#C147E9] to-[#810CA8] flex items-center justify-center text-white mb-8 shadow-[0_0_30px_rgba(193,71,233,0.5)] group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-network-wired text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Red de Profesionales</h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">Buscamos construir una red de ginecólogos comprometidos con la innovación, compartiendo nuestra visión de desarrollar estrategias terapéuticas personalizadas y actuales.</p>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Red de Innovación</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">Buscamos construir una red de ginecólogos comprometidos con la innovación y el desarrollo de estrategias terapéuticas actuales.</p>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-colors transform lg:-translate-y-6">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#E100FF] to-[#C147E9] flex items-center justify-center text-white mb-6">
-                        <i class="fa-solid fa-puzzle-piece text-xl"></i>
+                <div class="bg-white/10 backdrop-blur-3xl border border-[#E100FF]/30 p-10 rounded-[2.5rem] tilt-element relative z-10 hover:bg-white/20 transition-colors shadow-[0_0_50px_rgba(225,0,255,0.15)] transform lg:-translate-y-8 group">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#E100FF] text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-lg animate-pulse">Núcleo Central</div>
+                    <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#E100FF] to-[#810CA8] flex items-center justify-center text-white mb-8 mx-auto shadow-[0_0_40px_rgba(225,0,255,0.6)] group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid fa-puzzle-piece text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Integración Disciplinaria</h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">La integración entre medicina, farmacia y bioquímica representa una oportunidad única para ampliar las opciones terapéuticas disponibles, mejorando la atención centrada en la mujer.</p>
+                    <h3 class="text-2xl font-bold mb-4 text-white text-center">Integración Disciplinaria</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed text-center">La integración tripartita representa una oportunidad única para ampliar opciones terapéuticas y mejorar la atención centrada en la mujer.</p>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-colors">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#810CA8] to-[#4A044E] flex items-center justify-center text-white mb-6">
-                        <i class="fa-solid fa-handshake text-xl"></i>
+                <div class="bg-white/5 backdrop-blur-2xl border border-white/10 p-10 rounded-[2.5rem] tilt-element relative z-10 hover:bg-white/10 transition-colors shadow-2xl group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#810CA8] to-[#4A044E] flex items-center justify-center text-white mb-8 shadow-[0_0_30px_rgba(129,12,168,0.5)] group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-handshake text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Respaldo y Confianza</h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">Nuestro objetivo es establecer relaciones de trabajo sólidas, basadas en la confianza mutua, el respaldo científico riguroso y el compromiso compartido por la salud íntima.</p>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Respaldo Científico</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">Establecemos relaciones basadas en la confianza mutua, el rigor científico y el compromiso compartido por la salud íntima.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer Executive -->
-    <footer class="bg-white border-t border-[#E5B8F4]/30 relative overflow-hidden py-12">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#810CA8]/5"></div>
+    <footer class="bg-white relative overflow-hidden pt-20 pb-10">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#810CA8]/5 via-white to-white"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white shadow-lg">
-                    <i class="fa-solid fa-dna text-2xl"></i>
+            <div class="flex flex-col items-center justify-center gap-6 mb-12">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white shadow-2xl relative">
+                    <div class="absolute inset-0 border-2 border-[#E100FF] rounded-2xl animate-ping opacity-20"></div>
+                    <i class="fa-solid fa-dna text-3xl"></i>
                 </div>
-                <h2 class="text-3xl font-extrabold text-[#2D033B]">Intima<span class="text-[#C147E9]">Science</span></h2>
+                <h2 class="text-4xl font-extrabold text-[#2D033B] tracking-tight">Intima<span class="text-[#C147E9]">Science</span></h2>
             </div>
             
-            <p class="text-gray-500 mb-8 max-w-2xl mx-auto font-medium">Aspiramos a desarrollar un espacio donde la innovación, la evidencia científica y el cuidado integral trabajen en conjunto para mejorar la salud íntima femenina.</p>
+            <p class="text-gray-500 mb-12 max-w-2xl mx-auto font-medium text-lg">Aspiramos a desarrollar un espacio donde la innovación, la evidencia científica y el cuidado integral trabajen en conjunto para mejorar la salud íntima femenina.</p>
             
-            <div class="pt-8 border-t border-gray-100">
-                <p class="text-sm text-gray-400">&copy; 2026 IntimaScience. Presentación Ejecutiva Confidencial. Farmacia Magistral, Bioquímica y Ginecología.</p>
+            <div class="pt-8 border-t border-gray-200">
+                <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">&copy; 2026 IntimaScience. Presentación Ejecutiva Confidencial. Farmacia Magistral, Bioquímica y Ginecología.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Interactive Scripts for High-End Presentation -->
     <script>
-        // Smooth reveal animation on scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Trigger on load
+        // 1. Advanced Scroll Reveal using Intersection Observer
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
 
-        // Navbar styling on scroll
-        window.addEventListener("scroll", function() {
-            var nav = document.getElementById("navbar");
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: stop observing once revealed
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        // 2. Premium 3D Tilt Effect (Parallax on Mousemove)
+        const tiltWrappers = document.querySelectorAll('.tilt-wrapper');
+        
+        tiltWrappers.forEach(wrapper => {
+            wrapper.addEventListener('mousemove', (e) => {
+                const elements = wrapper.querySelectorAll('.tilt-element');
+                const rect = wrapper.getBoundingClientRect();
+                
+                // Calculate mouse position relative to the center of the wrapper
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Sensitivity multiplier
+                const multiplier = 0.05;
+
+                elements.forEach(el => {
+                    // Reverse rotation for a natural "following" feel
+                    const rotateX = -y * multiplier;
+                    const rotateY = x * multiplier;
+                    
+                    el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+            });
+
+            // Reset on mouse leave
+            wrapper.addEventListener('mouseleave', () => {
+                const elements = wrapper.querySelectorAll('.tilt-element');
+                elements.forEach(el => {
+                    el.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                });
+            });
+        });
+
+        // 3. Scroll Progress Bar & Dynamic Navbar
+        window.addEventListener("scroll", () => {
+            // Navbar Glass effect
+            const nav = document.getElementById("navbar");
             if (window.scrollY > 50) {
-                nav.classList.add("shadow-md", "bg-white/80");
-                nav.classList.remove("glass");
+                nav.classList.add("py-2");
+                nav.classList.remove("py-6");
+                nav.firstElementChild.classList.add("bg-white/80", "backdrop-blur-xl");
+                nav.firstElementChild.classList.remove("glass");
             } else {
-                nav.classList.remove("shadow-md", "bg-white/80");
-                nav.classList.add("glass");
+                nav.classList.add("py-6");
+                nav.classList.remove("py-2");
+                nav.firstElementChild.classList.remove("bg-white/80", "backdrop-blur-xl");
+                nav.firstElementChild.classList.add("glass");
             }
+
+            // Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
         });
     </script>
 </body>
