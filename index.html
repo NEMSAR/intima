@@ -4,110 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IntimaScience | Salud Íntima Femenina Regenerativa</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F7FA;
-            overflow-x: hidden;
-            color: #1F2937;
-            perspective: 1000px;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #F8F7FA; overflow-x: hidden; color: #1F2937; perspective: 1000px; }
         
-        /* Glassmorphism Premium */
-        .glass {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 15px 35px rgba(129, 12, 168, 0.05), inset 0 0 0 1px rgba(255,255,255,0.5);
-        }
-        
-        .glass-dark {
-            background: rgba(45, 3, 59, 0.85);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(193, 71, 233, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
+        /* Glassmorphism */
+        .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 15px 35px rgba(129, 12, 168, 0.05), inset 0 0 0 1px rgba(255,255,255,0.5); }
+        .glass-dark { background: rgba(45, 3, 59, 0.85); backdrop-filter: blur(24px); border: 1px solid rgba(193, 71, 233, 0.2); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+        .glass-modal { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.5); }
 
-        /* Progress Bar */
-        #scroll-progress {
-            position: fixed;
-            top: 0; left: 0; height: 4px;
-            background: linear-gradient(to right, #810CA8, #E100FF, #00E6F2);
-            z-index: 9999; width: 0%;
-            transition: width 0.1s ease-out;
-        }
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(to right, #810CA8, #E100FF, #00E6F2); z-index: 9999; width: 0%; transition: width 0.1s ease-out; }
 
-        /* Shimmer Gradient Text */
-        .text-shimmer {
-            background: linear-gradient(90deg, #810CA8, #E100FF, #810CA8);
-            background-size: 200% auto;
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: shimmer 4s linear infinite;
-        }
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
+        .text-shimmer { background: linear-gradient(90deg, #810CA8, #E100FF, #810CA8); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shimmer 4s linear infinite; }
+        @keyframes shimmer { to { background-position: 200% center; } }
 
-        /* Morphing Organic Blobs */
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: morph 15s ease-in-out infinite alternate;
-        }
+        /* Blobs */
+        .blob { position: absolute; filter: blur(80px); opacity: 0.4; animation: morph 15s ease-in-out infinite alternate; z-index: -1; }
         .blob-1 { top: -10%; left: -5%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(225,0,255,0.15) 0%, transparent 70%); animation-delay: 0s; }
         .blob-2 { top: 40%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(129,12,168,0.15) 0%, transparent 70%); animation-delay: -4s; }
 
         @keyframes morph {
             0% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: scale(1) translate(0, 0) rotate(0deg); }
-            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: scale(1.1) translate(50px, -50px) rotate(120deg); }
-            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; transform: scale(0.9) translate(-30px, 30px) rotate(240deg); }
             100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: scale(1) translate(0, 0) rotate(360deg); }
         }
 
-        /* Image Overlays & Zoom Effects */
-        .img-brand-overlay {
-            position: relative;
-            overflow: hidden; /* Contains the zoom */
-        }
-        .img-brand-overlay::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(129,12,168,0.2), rgba(225,0,255,0.1));
-            mix-blend-mode: multiply;
-            border-radius: inherit;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .img-zoom {
-            transition: transform 0.7s ease;
-        }
-        .tilt-element:hover .img-zoom {
-            transform: scale(1.05);
-        }
+        .img-brand-overlay { position: relative; overflow: hidden; }
+        .img-brand-overlay::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(129,12,168,0.2), rgba(225,0,255,0.1)); mix-blend-mode: multiply; pointer-events: none; z-index: 10; }
+        .img-zoom { transition: transform 0.7s ease; }
+        .tilt-element:hover .img-zoom { transform: scale(1.05); }
 
-        /* Hover Glow Cards */
         .glow-card { position: relative; transition: all 0.4s ease; }
         .glow-card:hover { transform: translateY(-5px); border-color: rgba(225, 0, 255, 0.3); box-shadow: 0 15px 30px rgba(225, 0, 255, 0.1); }
 
-        /* Advanced Staggered Reveal */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
-        /* 3D Tilt Wrapper */
         .tilt-wrapper { transform-style: preserve-3d; perspective: 1500px; }
         .tilt-element { transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform-style: preserve-3d; }
         .tilt-pop { transform: translateZ(30px); }
+
+        /* Modal Styles */
+        body.modal-open { overflow: hidden; }
+        .modal-overlay { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { transform: scale(0.95) translateY(20px); opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); opacity: 1; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #FAFAFA; }
@@ -124,27 +68,22 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-500 py-4" id="navbar">
+    <nav class="fixed w-full z-40 transition-all duration-500 py-4" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="glass rounded-full px-6 py-3 flex justify-between items-center mx-auto transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60">
                 <a href="#" class="flex items-center gap-3 tilt-wrapper">
-                    
                     <!-- 📸 [CAMBIAR LOGO HEADER AQUÍ] 📸 -->
-                    <!-- Si tienes el logo de IntimaScience en imagen, descomenta la línea de abajo y pon tu URL en el 'src' -->
                     <!-- <img src="URL_DE_TU_LOGO_AQUI.png" alt="Logo IntimaScience" class="h-10 w-auto tilt-element object-contain" /> -->
-                    
-                    <!-- Este es el logo en texto que se muestra actualmente. Bórralo si usas la imagen de arriba -->
                     <div class="tilt-element w-10 h-10 rounded-full bg-gradient-to-tr from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(225,0,255,0.4)]">
                         <i class="fa-solid fa-dna text-xl"></i>
                     </div>
                     <span class="font-extrabold text-xl md:text-2xl tracking-tight text-[#2D033B] tilt-element">Intima<span class="text-[#C147E9]">Science</span></span>
-                    <!-- ================================== -->
-
                 </a>
-                <div class="hidden lg:flex space-x-6">
+                <div class="hidden xl:flex space-x-6">
                     <a href="#ecosistema" class="text-xs font-bold text-gray-600 hover:text-[#C147E9] uppercase tracking-wider transition-colors">Ecosistema</a>
-                    <a href="#regenerativa" class="text-xs font-bold text-gray-600 hover:text-[#C147E9] uppercase tracking-wider transition-colors">Terapia PRP</a>
+                    <a href="#regenerativa" class="text-xs font-bold text-gray-600 hover:text-[#C147E9] uppercase tracking-wider transition-colors">PRP</a>
                     <a href="#tratamiento" class="text-xs font-bold text-gray-600 hover:text-[#C147E9] uppercase tracking-wider transition-colors">Protocolos</a>
+                    <a href="#evidencia" class="text-xs font-bold text-gray-600 hover:text-[#C147E9] uppercase tracking-wider transition-colors">Evidencia</a>
                     <a href="#profesionales" class="text-xs font-bold text-gray-600 hover:text-[#C147E9] uppercase tracking-wider transition-colors">Red Médica</a>
                 </div>
             </div>
@@ -155,8 +94,6 @@
     <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="lg:grid lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Text Left -->
                 <div class="lg:col-span-6 text-center lg:text-left mb-12 lg:mb-0">
                     <div class="reveal">
                         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 border border-[#C147E9]/30 text-xs font-bold text-[#810CA8] uppercase tracking-widest shadow-sm mb-6 backdrop-blur-sm">
@@ -171,7 +108,7 @@
                     </div>
                     <div class="reveal" style="transition-delay: 200ms;">
                         <p class="text-lg text-gray-600 mb-8 leading-relaxed font-light">
-                            Transformamos el abordaje tradicional centrado en el síntoma. Ofrecemos alternativas innovadoras basadas en evidencia científica para promover la salud celular, la regeneración tisular y el equilibrio de la microbiota.
+                            Dejamos atrás el enfoque tradicional centrado únicamente en el síntoma. Ofrecemos herramientas innovadoras para acompañar los procesos biológicos de la mujer, promoviendo la salud celular, la regeneración tisular y el bienestar integral.
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <a href="#ecosistema" class="px-8 py-4 rounded-full text-white font-bold shadow-lg shadow-[#810CA8]/30 bg-gradient-to-r from-[#810CA8] to-[#E100FF] hover:scale-105 transition-transform">
@@ -181,157 +118,144 @@
                     </div>
                 </div>
 
-                <!-- Photos Right -->
                 <div class="lg:col-span-6 relative h-[500px] tilt-wrapper reveal" style="transition-delay: 300ms;">
                     <div class="tilt-element w-full h-full relative">
-                        
                         <!-- 🖼️ [CAMBIAR FOTO PRINCIPAL HERO AQUÍ] 🖼️ -->
                         <div class="absolute right-0 top-0 w-3/4 h-[400px] rounded-[2rem] shadow-2xl border-4 border-white img-brand-overlay">
                             <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=800" alt="Investigación Científica" class="w-full h-full object-cover img-zoom">
                         </div>
-                        
                         <!-- 🖼️ [CAMBIAR FOTO SECUNDARIA HERO AQUÍ] 🖼️ -->
                         <div class="absolute left-0 bottom-10 w-2/3 h-[280px] rounded-[2rem] shadow-2xl border-4 border-white img-brand-overlay tilt-pop">
                             <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&q=80&w=800" alt="Salud Femenina" class="w-full h-full object-cover img-zoom">
                         </div>
-
-                        <!-- Floating Badges -->
                         <div class="absolute top-10 left-10 glass px-4 py-2 rounded-full flex items-center gap-2 shadow-lg tilt-pop">
-                            <div class="w-2 h-2 rounded-full bg-[#E100FF] animate-pulse"></div>
-                            <span class="text-xs font-bold text-[#810CA8]">Plasma Autólogo</span>
+                            <div class="w-2 h-2 rounded-full bg-[#E100FF] animate-pulse"></div><span class="text-xs font-bold text-[#810CA8]">Plasma Autólogo</span>
                         </div>
                         <div class="absolute bottom-4 right-10 glass px-4 py-2 rounded-full flex items-center gap-2 shadow-lg tilt-pop">
-                            <i class="fa-solid fa-bacterium text-[#C147E9]"></i>
-                            <span class="text-xs font-bold text-[#2D033B]">Probióticos Locales</span>
+                            <i class="fa-solid fa-bacterium text-[#C147E9]"></i><span class="text-xs font-bold text-[#2D033B]">Probióticos Locales</span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- 2. Ecosistema Íntimo -->
+    <!-- 2. Ecosistema Íntimo (Educativo - Viasek/Ginecanes Context) -->
     <section id="ecosistema" class="py-24 relative z-20 bg-white/40 backdrop-blur-md border-y border-[#E5B8F4]/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-2 gap-16 items-center">
-                
-                <!-- Imagen Ilustrativa Left -->
-                <div class="hidden lg:block relative h-[600px] tilt-wrapper reveal">
-                    <div class="tilt-element w-full h-full rounded-[3rem] shadow-2xl border-8 border-white/80 img-brand-overlay">
-                        <!-- 🖼️ [CAMBIAR FOTO ECOSISTEMA AQUÍ] 🖼️ -->
-                        <img src="https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&q=80&w=1000" alt="Ecosistema Íntimo" class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-tr from-[#810CA8] to-[#E100FF] p-1 shadow-xl tilt-pop">
-                        <div class="w-full h-full rounded-full bg-white flex flex-col items-center justify-center text-center">
-                            <span class="text-2xl font-black text-[#2D033B]">pH</span>
-                            <span class="text-[10px] font-bold text-[#C147E9] uppercase tracking-widest">Balance</span>
-                        </div>
-                    </div>
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-[#C147E9] font-bold tracking-widest uppercase text-xs"><i class="fa-solid fa-leaf mr-1"></i> Educación y Prevención</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mt-2 mb-4">El Ecosistema Íntimo y sus Señales</h2>
+                <p class="text-gray-600">La vagina posee un ecosistema natural de lactobacilos. Actúan como <b>escudo protector</b>, manteniendo el pH ácido y evitando la proliferación de patógenos.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 tilt-wrapper">
+                <!-- Causas -->
+                <div class="glass p-8 rounded-[2rem] tilt-element reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-triangle-exclamation text-xl"></i></div>
+                    <h3 class="text-xl font-bold text-[#2D033B] mb-4">¿Por qué se desequilibra?</h3>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-xmark text-orange-400 mt-1"></i> Cambios hormonales (menopausia, posparto, embarazo).</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-xmark text-orange-400 mt-1"></i> Uso prolongado de antibióticos.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-xmark text-orange-400 mt-1"></i> Uso de jabones íntimos inadecuados o ropa ajustada.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-xmark text-orange-400 mt-1"></i> Estrés sostenido.</li>
+                    </ul>
                 </div>
 
-                <!-- Text Content Right -->
-                <div class="reveal">
-                    <span class="text-[#C147E9] font-bold tracking-widest uppercase text-xs"><i class="fa-solid fa-leaf mr-1"></i> Cuidado Consciente</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mt-2 mb-6">El Ecosistema Íntimo y sus Señales</h2>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        La vagina posee un ecosistema natural compuesto principalmente por lactobacilos. Estas bacterias beneficiosas son tu <b>escudo protector</b>: mantienen el pH ácido adecuado y evitan la proliferación de hongos y bacterias dañinas.
-                    </p>
-                    <p class="text-gray-600 mb-8 leading-relaxed">
-                        Factores como el <b>estrés, los antibióticos, o los cambios hormonales</b> (posparto, menopausia) pueden desequilibrar esta flora. El picor, ardor e irritación son la forma en que tu cuerpo avisa que los tejidos necesitan regeneración.
-                    </p>
-                    
-                    <div class="space-y-4">
-                        <div class="glass glow-card p-5 rounded-2xl flex items-start gap-4">
-                            <div class="w-10 h-10 shrink-0 rounded-full bg-[#E100FF]/10 flex items-center justify-center text-[#E100FF]"><i class="fa-solid fa-fire"></i></div>
-                            <div>
-                                <h4 class="font-bold text-[#2D033B]">Picor y Ardor Vulvar</h4>
-                                <p class="text-sm text-gray-500 mt-1">Señales de un pH alterado. Nuestros probióticos locales restauran la barrera ácida protectora de inmediato.</p>
-                            </div>
-                        </div>
-                        <div class="glass glow-card p-5 rounded-2xl flex items-start gap-4">
-                            <div class="w-10 h-10 shrink-0 rounded-full bg-[#C147E9]/10 flex items-center justify-center text-[#C147E9]"><i class="fa-solid fa-droplet-slash"></i></div>
-                            <div>
-                                <h4 class="font-bold text-[#2D033B]">Sequedad y Atrofia</h4>
-                                <p class="text-sm text-gray-500 mt-1">El PRP estimula la regeneración del tejido conectivo, devolviendo la lubricación natural y elasticidad.</p>
-                            </div>
-                        </div>
-                        <div class="glass glow-card p-5 rounded-2xl flex items-start gap-4 border-l-4 border-[#810CA8]">
-                            <div class="w-10 h-10 shrink-0 rounded-full bg-[#810CA8]/10 flex items-center justify-center text-[#810CA8]"><i class="fa-solid fa-shield-virus"></i></div>
-                            <div>
-                                <h4 class="font-bold text-[#2D033B]">Infecciones Recurrentes</h4>
-                                <p class="text-sm text-gray-500 mt-1">La bioquímica regenerativa repuebla la zona desde la raíz, superando el tratamiento tradicional que solo alivia síntomas.</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Síntomas -->
+                <div class="glass p-8 rounded-[2rem] tilt-element reveal group" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-bell text-xl"></i></div>
+                    <h3 class="text-xl font-bold text-[#2D033B] mb-4">Señales de Alerta</h3>
+                    <p class="text-sm text-gray-500 mb-4">El cuerpo avisa que los tejidos o el pH necesitan atención cuando presentas:</p>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-dot text-[8px] text-red-400"></i> Picor, ardor o irritación vulvovaginal.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-dot text-[8px] text-red-400"></i> Sequedad y dolor en las relaciones (dispareunia).</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-dot text-[8px] text-red-400"></i> Flujo atípico o mal olor.</li>
+                    </ul>
                 </div>
 
+                <!-- Solución Regenerativa -->
+                <div class="glass p-8 rounded-[2rem] tilt-element reveal group border-t-4 border-[#810CA8]" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg"><i class="fa-solid fa-shield-virus text-xl"></i></div>
+                    <h3 class="text-xl font-bold text-[#2D033B] mb-4">Nuestra Solución</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        A diferencia de los tratamientos tradicionales, nuestra fórmula <b>no solo repara</b> la estructura del tejido desde la Bioquímica Regenerativa, sino que <b>restablece las defensas</b> naturales con la adición de Probióticos Locales.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. Ginecología Regenerativa (Fondo oscuro fotográfico) -->
+    <!-- 3. Ginecología Regenerativa (PRP) -->
     <section id="regenerativa" class="relative py-32 overflow-hidden bg-black">
-        
         <!-- 🖼️ [CAMBIAR FOTO DE FONDO PRP AQUÍ] 🖼️ -->
-        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=1920" alt="Bioquímica Celular" class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-luminosity">
-        
+        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=1920" alt="Bioquímica Celular" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity">
         <div class="absolute inset-0 bg-gradient-to-r from-[#2D033B]/90 to-[#810CA8]/80"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
-            <div class="text-center max-w-4xl mx-auto mb-16 reveal">
-                <h2 class="text-3xl md:text-5xl font-extrabold mb-6">El Poder del PRP y la Bioquímica</h2>
-                <p class="text-gray-300 text-lg">
-                    La Ginecología Regenerativa utiliza Plasma Rico en Plaquetas (PRP). Las plaquetas activadas liberan moléculas esenciales que estimulan la regeneración de tejidos desde la raíz. Al usar células propias, <b>no provoca rechazo</b> y es de aplicación <b>ambulatoria</b>.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6 reveal tilt-wrapper" style="transition-delay: 200ms;">
-                <div class="glass-dark p-8 rounded-3xl tilt-element border border-white/10 hover:bg-white/10 transition-colors">
-                    <i class="fa-solid fa-dna text-3xl text-[#E100FF] mb-4"></i>
-                    <h4 class="text-lg font-bold mb-2">PDGF & EGF</h4>
-                    <p class="text-sm text-gray-400">Estimulan la proliferación celular y la regeneración del epitelio íntimo de manera natural.</p>
+            <div class="lg:flex items-center gap-16">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 reveal">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6">El Poder del PRP y la Bioquímica</h2>
+                    <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                        La Ginecología Regenerativa utiliza Plasma Rico en Plaquetas (PRP). Las plaquetas activadas liberan moléculas esenciales que estimulan la regeneración de tejidos desde la raíz. 
+                    </p>
+                    <ul class="space-y-4 mb-8 text-gray-200">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-[#00E6F2]"></i> Formación de nuevos vasos (angiogénesis).</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-[#00E6F2]"></i> Síntesis de colágeno y reparación del tejido conectivo.</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-[#00E6F2]"></i> Modulación de la inflamación y proliferación celular.</li>
+                    </ul>
+                    <button onclick="openModal('modal-bioquimica')" class="px-6 py-3 rounded-full border border-white/30 hover:bg-white/10 transition-colors text-sm font-bold tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> Ver Base Bioquímica Completa
+                    </button>
                 </div>
-                <div class="glass-dark p-8 rounded-3xl tilt-element border border-white/10 hover:bg-white/10 transition-colors transform md:-translate-y-6">
-                    <i class="fa-solid fa-network-wired text-3xl text-[#00E6F2] mb-4"></i>
-                    <h4 class="text-lg font-bold mb-2">VEGF</h4>
-                    <p class="text-sm text-gray-400">Promueve la angiogénesis (formación de nuevos vasos sanguíneos), oxigenando la zona afectada.</p>
-                </div>
-                <div class="glass-dark p-8 rounded-3xl tilt-element border border-white/10 hover:bg-white/10 transition-colors">
-                    <i class="fa-solid fa-layer-group text-3xl text-[#C147E9] mb-4"></i>
-                    <h4 class="text-lg font-bold mb-2">TGF-B & IGF-1</h4>
-                    <p class="text-sm text-gray-400">Participan en la síntesis de colágeno y la reparación profunda del tejido conectivo y la supervivencia celular.</p>
+                
+                <div class="lg:w-1/2 grid sm:grid-cols-2 gap-4 reveal tilt-wrapper" style="transition-delay: 200ms;">
+                    <div class="glass-dark p-6 rounded-2xl tilt-element border border-white/10 hover:border-[#E100FF]/50 transition-colors">
+                        <h4 class="text-[#E100FF] font-black text-xl mb-1">PDGF</h4>
+                        <p class="text-xs text-gray-400">Estimula la proliferación celular.</p>
+                    </div>
+                    <div class="glass-dark p-6 rounded-2xl tilt-element border border-white/10 hover:border-[#00E6F2]/50 transition-colors">
+                        <h4 class="text-[#00E6F2] font-black text-xl mb-1">VEGF</h4>
+                        <p class="text-xs text-gray-400">Promueve la formación de vasos sanguíneos.</p>
+                    </div>
+                    <div class="glass-dark p-6 rounded-2xl tilt-element border border-white/10 hover:border-[#C147E9]/50 transition-colors">
+                        <h4 class="text-[#C147E9] font-black text-xl mb-1">TGF-B</h4>
+                        <p class="text-xs text-gray-400">Participa en la reparación tisular.</p>
+                    </div>
+                    <div class="glass-dark p-6 rounded-2xl tilt-element border border-white/10 hover:border-[#E100FF]/50 transition-colors">
+                        <h4 class="text-[#E100FF] font-black text-xl mb-1">EGF & IGF-1</h4>
+                        <p class="text-xs text-gray-400">Regeneración epitelial, crecimiento y supervivencia celular.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Protocolos y Tratamiento -->
+    <!-- 4. Tratamientos y A Quién va dirigido -->
     <section id="tratamiento" class="py-24 relative bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 reveal">
                 <span class="text-[#810CA8] font-bold tracking-widest uppercase text-xs">Farmacia Magistral</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mt-2 mb-4">Formulaciones Personalizadas</h2>
-                <p class="text-gray-600">Soluciones que respetan el pH de la mujer fértil y de aquellas en etapa peri o post menopáusica.</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mt-2 mb-4">Protocolos Personalizados</h2>
+                <p class="text-gray-600">Al ser una terapia que utiliza células del propio individuo, <b>no provoca rechazo</b> y la aplicación es <b>ambulatoria</b>.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10">
+            <!-- Cards Tratamientos -->
+            <div class="grid md:grid-cols-2 gap-10 mb-16">
                 <!-- Tratamiento 1 -->
                 <div class="reveal tilt-wrapper">
-                    <div class="tilt-element glass shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full">
-                        
+                    <div class="tilt-element glass shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full group">
                         <!-- 🖼️ [CAMBIAR FOTO PROTOCOLO 1 AQUÍ] 🖼️ -->
                         <div class="h-48 w-full relative img-brand-overlay">
                             <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800" alt="PRP y Probióticos" class="w-full h-full object-cover img-zoom">
                             <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-[#810CA8]">Terapia Combinada</div>
                         </div>
-                        
                         <div class="p-8 flex-grow">
-                            <h3 class="text-2xl font-bold text-[#2D033B] mb-3">Crema con Probióticos + PRP</h3>
-                            <p class="text-sm text-gray-600 mb-6">Combina el Plasma Rico en Plaquetas con una base rica en probióticos naturales para regeneración profunda y equilibrio microbiano.</p>
+                            <h3 class="text-2xl font-bold text-[#2D033B] mb-3">Crema Vaginal con Probióticos + PRP</h3>
+                            <p class="text-sm text-gray-600 mb-6">Combina Plasma Rico en Plaquetas con una base de probióticos para regeneración profunda. Respeta el pH de la mujer fértil y menopáusica.</p>
                             <ul class="space-y-3 text-sm text-gray-700">
-                                <li><i class="fa-solid fa-syringe text-[#C147E9] mr-2"></i> <b>Obtención:</b> Extracción de sangre simple, ambulatoria.</li>
-                                <li><i class="fa-solid fa-calendar-check text-[#C147E9] mr-2"></i> <b>Sesiones:</b> Aplicación por 7 días, con intervalos de 20 días entre sesiones para resultados óptimos.</li>
+                                <li><i class="fa-solid fa-syringe text-[#C147E9] w-5"></i> <b>Obtención:</b> Muestra de sangre (similar a analítica normal).</li>
+                                <li><i class="fa-solid fa-calendar-check text-[#C147E9] w-5"></i> <b>Sesiones:</b> Durante 7 días. Intervalo de 20 días entre sesiones.</li>
                             </ul>
                         </div>
                     </div>
@@ -339,41 +263,119 @@
 
                 <!-- Tratamiento 2 -->
                 <div class="reveal tilt-wrapper" style="transition-delay: 150ms;">
-                    <div class="tilt-element glass shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full">
-                        
+                    <div class="tilt-element glass shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full group">
                         <!-- 🖼️ [CAMBIAR FOTO PROTOCOLO 2 AQUÍ] 🖼️ -->
                         <div class="h-48 w-full relative img-brand-overlay">
                             <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?auto=format&fit=crop&q=80&w=800" alt="Probióticos" class="w-full h-full object-cover img-zoom">
                             <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-[#E100FF]">Terapia Microbiótica</div>
                         </div>
-
                         <div class="p-8 flex-grow">
-                            <h3 class="text-2xl font-bold text-[#2D033B] mb-3">Crema con Probióticos Locales</h3>
-                            <p class="text-sm text-gray-600 mb-6">Restablece las defensas naturales y el ecosistema vulvovaginal mediante microorganismos vivos de acción local.</p>
+                            <h3 class="text-2xl font-bold text-[#2D033B] mb-3">Crema Vaginal con Probióticos</h3>
+                            <p class="text-sm text-gray-600 mb-6">Restablece las defensas naturales y el ecosistema vulvovaginal. Eficaz en prevención y tratamiento de infecciones urogenitales.</p>
                             <ul class="space-y-3 text-sm text-gray-700">
-                                <li><i class="fa-solid fa-shield-halved text-[#C147E9] mr-2"></i> <b>Acción:</b> Actúan como un "escudo protector" ácido (7-14 días para restaurar, 1-3 meses para prevenir).</li>
-                                <li><i class="fa-solid fa-clock text-[#C147E9] mr-2"></i> <b>Sesiones:</b> 2 veces por semana, durante 4 semanas (8 aplicaciones).</li>
+                                <li><i class="fa-solid fa-clock text-[#C147E9] w-5"></i> <b>Tiempos:</b> 7-14 días para restaurar flora. 1-3 meses para prevenir.</li>
+                                <li><i class="fa-solid fa-calendar-check text-[#C147E9] w-5"></i> <b>Modo de uso:</b> 2 veces por semana, por 4 semanas (8 jeringas).</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Detalles adicionales (Indicaciones y Resultados) -->
+            <div class="grid lg:grid-cols-2 gap-8 reveal">
+                <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100">
+                    <h4 class="font-extrabold text-[#2D033B] text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-users text-[#810CA8]"></i> ¿A quién va dirigido?</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Mujeres con atrofia genitourinaria.</li>
+                        <li>• Mujeres peri y postmenopáusicas con sequedad vaginal.</li>
+                        <li>• Mujeres con liquen vulvar escleroso (complemento estándar).</li>
+                        <li>• Necesidad de cicatrización (dolorosas, fisuras crónicas).</li>
+                        <li>• Procesos que requieran regeneración tisular por envejecimiento.</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100">
+                    <h4 class="font-extrabold text-[#2D033B] text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-star text-[#E100FF]"></i> Resultados Esperados</h4>
+                    <ul class="space-y-2 text-sm text-gray-600 grid sm:grid-cols-2 gap-x-4">
+                        <li>• Mejora sequedad genital.</li>
+                        <li>• Facilita apertura vaginal.</li>
+                        <li>• Disminuye dispareunia.</li>
+                        <li>• Mejora cicatrización y postparto.</li>
+                        <li>• Estimula regeneración de tejidos.</li>
+                        <li>• Promueve hidratación y lubricación.</li>
+                        <li>• Mejora elasticidad y firmeza.</li>
+                        <li>• Promueve colágeno y elastina.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 reveal">
+                <button onclick="openModal('modal-recuperacion')" class="text-sm font-bold text-[#810CA8] hover:text-[#C147E9] underline underline-offset-4">Ver detalles de Recuperación y Tiempos de Espera</button>
+            </div>
         </div>
     </section>
 
-    <!-- 5. PROFESIONALES ASOCIADOS (Nueva Sección Premium) -->
-    <section id="profesionales" class="py-24 relative bg-gradient-to-b from-white to-[#F8F7FA] border-t border-gray-100">
+    <!-- 5. Aval Científico -->
+    <section id="evidencia" class="py-24 relative bg-[#F8F7FA] border-t border-[#E5B8F4]/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <i class="fa-solid fa-book-medical text-3xl text-[#810CA8] mb-4"></i>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mb-4">Evidencia Científica y Publicaciones</h2>
+                <p class="text-gray-600">Herramientas respaldadas rigurosamente por la comunidad médica internacional.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal mb-10">
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-[10px] tracking-widest">Atrofia Vulvovaginal</h4>
+                    <p class="text-sm text-gray-700 mb-3">Mejora significativa en síntomas como sequedad, dispareunia y calidad de vida sexual.</p>
+                    <p class="text-[10px] text-gray-400 font-medium bg-gray-50 p-2 rounded-lg">Journal of Women's Health (2020), Menopause (2021) (e.g., Hersant et al., 2023)</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-[10px] tracking-widest">Liquen Escleroso</h4>
+                    <p class="text-sm text-gray-700 mb-3">Reducción del picor y la disfunción sexual, con mejoría histológica.</p>
+                    <p class="text-[10px] text-gray-400 font-medium bg-gray-50 p-2 rounded-lg">Obstetrics & Gynecology (2019), European Journal of Obstetrics & Gynecology... (2022)</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-[10px] tracking-widest">Incontinencia Urinaria</h4>
+                    <p class="text-sm text-gray-700 mb-3">Resultados prometedores en incontinencia de esfuerzo. Reducción de escapes.</p>
+                    <p class="text-[10px] text-gray-400 font-medium bg-gray-50 p-2 rounded-lg">International Urogynecology Journal (2021), Female Pelvic Medicine... (2022) e.g., Runels et al., 2022</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-[10px] tracking-widest">Disfunción Sexual Femenina</h4>
+                    <p class="text-sm text-gray-700 mb-3">Mejorías en la excitación, orgasmo y satisfacción general.</p>
+                    <p class="text-[10px] text-gray-400 font-medium bg-gray-50 p-2 rounded-lg">(e.g., Casella et al., 2021)</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-[10px] tracking-widest">Vulvodinia</h4>
+                    <p class="text-sm text-gray-700 mb-3">Reduce la inflamación crónica el tejido vestibular, disminuyendo irritación nerviosa.</p>
+                    <p class="text-[10px] text-gray-400 font-medium bg-gray-50 p-2 rounded-lg">Kellog-Spadt, S., et al (2021). Uptodate [internet].</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-[10px] tracking-widest">Cicatrices</h4>
+                    <p class="text-sm text-gray-700 mb-3">Estimula la regeneración y remodelación del tejido cicatricial, reduciendo su apariencia.</p>
+                    <p class="text-[10px] text-gray-400 font-medium bg-gray-50 p-2 rounded-lg">International Journal of Environmental Research... (2022) (e.g., Ciećkiewicz et al, 2022)</p>
+                </div>
+            </div>
+
+            <div class="text-center reveal">
+                <button onclick="openModal('modal-bibliografia')" class="px-8 py-4 rounded-full bg-white border border-[#C147E9]/50 text-[#810CA8] font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 mx-auto">
+                    <i class="fa-solid fa-list-ol"></i> Ver las 15 Referencias Bibliográficas Completas
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Profesionales & Conclusiones -->
+    <section id="profesionales" class="py-24 relative bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 reveal">
                 <span class="text-[#C147E9] font-bold tracking-widest uppercase text-xs">Alianzas por la Innovación</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mt-2 mb-4">Profesionales Asociados</h2>
-                <p class="text-gray-600">Uniendo medicina, farmacia y bioquímica para diversificar el arsenal terapéutico y mejorar la atención centrada en la mujer.</p>
+                <p class="text-gray-600">Integrando medicina, farmacia y bioquímica clínica.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 tilt-wrapper">
-                
-                <!-- Profesional 1: Dana Berbel -->
-                <div class="glass p-8 rounded-[2.5rem] text-center tilt-element shadow-lg border border-white hover:border-[#810CA8]/30 transition-colors group">
+            <div class="grid md:grid-cols-2 gap-8 tilt-wrapper max-w-4xl mx-auto mb-20">
+                <!-- Profesional 1 -->
+                <div class="glass p-8 rounded-[2.5rem] text-center tilt-element shadow-lg border border-gray-100 hover:border-[#810CA8]/30 transition-colors group">
                     <div class="w-32 h-32 mx-auto rounded-full p-1 bg-gradient-to-tr from-[#810CA8] to-[#E100FF] mb-6 shadow-xl relative overflow-hidden">
                         <!-- 🖼️ [CAMBIAR FOTO DANA BERBEL AQUÍ] 🖼️ -->
                         <img src="https://images.unsplash.com/photo-1594824436951-7f126f5194dc?auto=format&fit=crop&q=80&w=400" alt="Farm. Berbel Dana" class="w-full h-full rounded-full object-cover border-4 border-white">
@@ -381,11 +383,10 @@
                     <h3 class="text-xl font-extrabold text-[#2D033B] mb-1">Farm. Berbel Dana</h3>
                     <p class="text-sm font-semibold text-[#810CA8] mb-3">Farmacéutica</p>
                     <div class="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500 font-medium mb-4">M.P 291</div>
-                    <p class="text-xs text-gray-500 leading-relaxed">Especialista en desarrollo de fórmulas magistrales naturales orientadas a la recuperación íntima de la mujer.</p>
                 </div>
 
-                <!-- Profesional 2: Valeria Espinoza -->
-                <div class="glass p-8 rounded-[2.5rem] text-center tilt-element shadow-lg border border-white hover:border-[#C147E9]/30 transition-colors group transform md:-translate-y-4">
+                <!-- Profesional 2 -->
+                <div class="glass p-8 rounded-[2.5rem] text-center tilt-element shadow-lg border border-gray-100 hover:border-[#C147E9]/30 transition-colors group transform md:-translate-y-4">
                     <div class="w-32 h-32 mx-auto rounded-full p-1 bg-gradient-to-tr from-[#C147E9] to-[#00E6F2] mb-6 shadow-xl relative overflow-hidden">
                         <!-- 🖼️ [CAMBIAR FOTO VALERIA ESPINOZA AQUÍ] 🖼️ -->
                         <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400" alt="Bioq. Espinoza Valeria" class="w-full h-full rounded-full object-cover border-4 border-white">
@@ -393,111 +394,196 @@
                     <h3 class="text-xl font-extrabold text-[#2D033B] mb-1">Bioq. Espinoza Valeria</h3>
                     <p class="text-sm font-semibold text-[#C147E9] mb-3">Bioquímica</p>
                     <div class="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500 font-medium mb-4">M.P 213</div>
-                    <p class="text-xs text-gray-500 leading-relaxed">Experta en bioquímica celular, regenerativa y procesamiento de Plasma Rico en Plaquetas (PRP).</p>
                 </div>
+            </div>
 
-                <!-- Tarjeta Unete a la red -->
-                <div class="glass p-8 rounded-[2.5rem] text-center tilt-element shadow-lg border-2 border-dashed border-[#E100FF]/40 flex flex-col justify-center items-center group cursor-pointer hover:bg-[#E100FF]/5 transition-colors">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-[#E100FF]/10 flex items-center justify-center text-[#E100FF] mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-user-doctor text-3xl"></i>
+            <!-- Conclusiones y Futuro -->
+            <div class="bg-gradient-to-br from-[#F8F7FA] to-white p-10 rounded-[3rem] border border-gray-100 shadow-sm reveal">
+                <h3 class="text-2xl font-extrabold text-[#2D033B] mb-8 text-center">Conclusiones y Futuro del PRP en Ginecología</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <i class="fa-solid fa-flask text-2xl text-[#810CA8] mb-3"></i>
+                        <h4 class="font-bold text-[#2D033B] mb-2">Innovación Terapéutica</h4>
+                        <p class="text-xs text-gray-600">Abriendo nuevas vías para el manejo de patologías ginecológicas resistentes a tratamientos convencionales.</p>
                     </div>
-                    <h3 class="text-xl font-extrabold text-[#2D033B] mb-2">¿Eres Ginecólogo/a?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-6">Súmate a nuestra red de trabajo clínico basado en la evidencia científica y diversifica tu arsenal terapéutico.</p>
-                    <span class="text-xs font-bold text-[#E100FF] uppercase tracking-widest border-b border-[#E100FF] pb-1">Unirse a la red médica</span>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. Evidencia Científica -->
-    <section id="evidencia" class="py-24 relative bg-gray-50 border-t border-[#E5B8F4]/30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-                <i class="fa-solid fa-book-medical text-3xl text-[#810CA8] mb-4"></i>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-[#2D033B] mb-4">Aval Científico</h2>
-                <p class="text-gray-600">Herramientas respaldadas por estudios clínicos recientes en el manejo de patologías ginecológicas.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-xs tracking-wider">Atrofia Vulvovaginal</h4>
-                    <p class="text-sm text-gray-600 mb-4">Mejora significativa en síntomas como sequedad, dispareunia y calidad de vida. (Hersant et al., 2023)</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-xs tracking-wider">Liquen Escleroso</h4>
-                    <p class="text-sm text-gray-600 mb-4">Reducción del picor y disfunción sexual, con comprobada mejoría histológica.</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-xs tracking-wider">Incontinencia Urinaria</h4>
-                    <p class="text-sm text-gray-600 mb-4">Reducción de escapes y fortalecimiento del piso pélvico en incontinencia de esfuerzo.</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-xs tracking-wider">Disfunción Sexual</h4>
-                    <p class="text-sm text-gray-600 mb-4">Mejorías notables en la excitación, orgasmo y satisfacción sexual general. (Casella et al., 2021)</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-xs tracking-wider">Vulvodinia</h4>
-                    <p class="text-sm text-gray-600 mb-4">Reduce la inflamación crónica del tejido vestibular, disminuyendo irritación nerviosa.</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                    <h4 class="font-bold text-[#810CA8] mb-2 uppercase text-xs tracking-wider">Cicatrices</h4>
-                    <p class="text-sm text-gray-600 mb-4">Estimula regeneración y remodelación del tejido, mejorando textura de cicatrices posparto y fisuras.</p>
+                    <div class="text-center">
+                        <i class="fa-solid fa-user-check text-2xl text-[#E100FF] mb-3"></i>
+                        <h4 class="font-bold text-[#2D033B] mb-2">Medicina Personalizada</h4>
+                        <p class="text-xs text-gray-600">Enfoque autólogo que reduce riesgos y optimiza la compatibilidad del tratamiento de forma natural.</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fa-solid fa-microscope text-2xl text-[#00E6F2] mb-3"></i>
+                        <h4 class="font-bold text-[#2D033B] mb-2">Investigación Continua</h4>
+                        <p class="text-xs text-gray-600">Se esperan más estudios a gran escala para estandarizar protocolos y expandir indicaciones.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer Ejecutivo -->
-    <footer class="bg-white relative overflow-hidden pt-20 pb-16 border-t border-gray-200">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#810CA8]/5 via-white to-white"></div>
+    <!-- Footer -->
+    <footer class="bg-[#2D033B] relative overflow-hidden pt-20 pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            
             <div class="flex flex-col items-center justify-center gap-4 mb-10">
-                
                 <!-- 📸 [CAMBIAR LOGO FOOTER AQUÍ] 📸 -->
-                <!-- Si quieres poner la imagen de tu logo en el footer, descomenta esto y borra el div de abajo: -->
                 <!-- <img src="URL_DE_TU_LOGO_AQUI.png" alt="Logo IntimaScience" class="h-16 w-auto object-contain" /> -->
-                
                 <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#810CA8] to-[#E100FF] flex items-center justify-center text-white shadow-xl">
                     <i class="fa-solid fa-dna text-2xl"></i>
                 </div>
-                <h2 class="text-3xl font-extrabold text-[#2D033B] tracking-tight">Intima<span class="text-[#C147E9]">Science</span></h2>
-                <!-- ================================== -->
-
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">Intima<span class="text-[#C147E9]">Science</span></h2>
             </div>
             
-            <p class="text-gray-500 mb-10 max-w-2xl mx-auto font-medium text-sm">
+            <p class="text-gray-400 mb-10 max-w-2xl mx-auto font-medium text-sm">
                 Aspiramos a desarrollar un espacio donde la innovación, la evidencia científica y el cuidado integral trabajen en conjunto para mejorar la salud íntima femenina.
             </p>
             
-            <div class="pt-8 border-t border-gray-100 flex flex-col items-center justify-center">
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-8">
+            <div class="pt-8 border-t border-white/10 flex flex-col items-center justify-center">
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-8">
                     &copy; 2026 IntimaScience. Presentación Ejecutiva Confidencial. Farmacia Magistral, Bioquímica y Ginecología.
                 </p>
                 
-                <!-- NovaBit Media Agency Badge -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-[#111] shadow-[0_0_20px_rgba(225,0,255,0.15)] hover:shadow-[0_10px_30px_rgba(129,12,168,0.4)] transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
+                <!-- NovaBit Media Agency Badge (NEMS) -->
+                <a href="#" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-black shadow-[0_0_20px_rgba(225,0,255,0.15)] hover:shadow-[0_10px_30px_rgba(129,12,168,0.4)] transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-white/5">
                     
-                    <!-- 📸 [CAMBIAR LOGO NOVABIT AGENCY AQUÍ] 📸 -->
-                    <!-- ACTUALMENTE ESTÁ DISEÑADO EN CÓDIGO. SI TIENES EL LOGO EN IMAGEN, BORRA EL CONTENIDO DE ABAJO Y DESCOMENTA ESTA LÍNEA: -->
-                    <!-- <img src="URL_LOGO_NOVABIT_AQUI.png" alt="NovaBit Media Agency" class="h-6 w-auto" /> -->
-
-                    <!-- INICIO: Diseño de Agencia en código -->
+                    <!-- 📸 [SI TIENES LOGO DE NOVABIT AGENCY EN IMAGEN, REEMPLAZA EL CONTENIDO DE ABAJO POR EL TAG IMG] 📸 -->
+                    
                     <div class="absolute inset-0 bg-gradient-to-r from-[#810CA8]/20 to-[#00E6F2]/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest group-hover:text-white transition-colors relative z-10 mr-3">Powered by</span>
                     <div class="h-5 w-px bg-white/20 relative z-10 mr-3"></div>
                     <span class="text-sm font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 group-hover:from-[#00E6F2] group-hover:to-[#E100FF] transition-all duration-500 relative z-10 mr-2">NovaBit Media Agency</span>
                     <i class="fa-solid fa-bolt text-[#E100FF] text-xs opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all relative z-10"></i>
-                    <!-- FIN: Diseño de Agencia en código -->
-                    <!-- ================================== -->
-
                 </a>
             </div>
         </div>
     </footer>
 
-    <!-- Interactive Scripts -->
+
+    <!-- ============================================== -->
+    <!-- MODALES (Ventanas Emergentes)                  -->
+    <!-- ============================================== -->
+
+    <!-- MODAL 1: Bioquímica Avanzada -->
+    <div id="modal-bioquimica" class="fixed inset-0 z-[100] modal-overlay flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-[#2D033B]/60 backdrop-blur-sm" onclick="closeModal('modal-bioquimica')"></div>
+        <div class="glass-modal rounded-[2rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto relative z-10 shadow-2xl modal-content p-8">
+            <button onclick="closeModal('modal-bioquimica')" class="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h3 class="text-2xl font-extrabold text-[#2D033B] mb-2"><i class="fa-solid fa-flask text-[#810CA8] mr-2"></i> Bioquímica Regenerativa</h3>
+            <p class="text-sm text-gray-600 mb-6 pb-6 border-b border-gray-200">Detalle de las sustancias clave en medicina regenerativa.</p>
+            
+            <div class="space-y-6">
+                <div>
+                    <h4 class="font-bold text-[#810CA8] mb-2">Sustancias Principales</h4>
+                    <ul class="grid grid-cols-2 gap-2 text-sm text-gray-700">
+                        <li><i class="fa-solid fa-check text-xs text-[#E100FF] mr-1"></i> Factores de crecimiento</li>
+                        <li><i class="fa-solid fa-check text-xs text-[#E100FF] mr-1"></i> Citoquinas</li>
+                        <li><i class="fa-solid fa-check text-xs text-[#E100FF] mr-1"></i> Quimioquinas</li>
+                        <li><i class="fa-solid fa-check text-xs text-[#E100FF] mr-1"></i> Proteínas de señalización</li>
+                        <li><i class="fa-solid fa-check text-xs text-[#E100FF] mr-1"></i> Exosomas</li>
+                        <li><i class="fa-solid fa-check text-xs text-[#E100FF] mr-1"></i> Células madre</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[#810CA8] mb-2">Factores de Crecimiento del PRP</h4>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <span class="font-bold text-[#2D033B] text-sm">PDGF (Platelet-Derived Growth Factor):</span> <span class="text-sm text-gray-600">Estimula la proliferación celular.</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <span class="font-bold text-[#2D033B] text-sm">VEGF (Vascular Endothelial Growth Factor):</span> <span class="text-sm text-gray-600">Promueve la formación de vasos sanguíneos.</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <span class="font-bold text-[#2D033B] text-sm">TGF-B (Transforming Growth Factor Beta):</span> <span class="text-sm text-gray-600">Participa en la reparación tisular.</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <span class="font-bold text-[#2D033B] text-sm">EGF (Epidermal Growth Factor):</span> <span class="text-sm text-gray-600">Favorece la regeneración epitelial.</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <span class="font-bold text-[#2D033B] text-sm">IGF-1 (Insulin-like Growth Factor):</span> <span class="text-sm text-gray-600">Estimula crecimiento y supervivencia celular.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center"><button onclick="closeModal('modal-bioquimica')" class="px-6 py-2 bg-gray-900 text-white rounded-full text-sm font-bold">Cerrar Detalle</button></div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Recuperación -->
+    <div id="modal-recuperacion" class="fixed inset-0 z-[100] modal-overlay flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-[#2D033B]/60 backdrop-blur-sm" onclick="closeModal('modal-recuperacion')"></div>
+        <div class="glass-modal rounded-[2rem] w-full max-w-lg max-h-[90vh] overflow-y-auto relative z-10 shadow-2xl modal-content p-8 text-center">
+            <button onclick="closeModal('modal-recuperacion')" class="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-500 mx-auto mb-4 text-2xl"><i class="fa-solid fa-heart-circle-check"></i></div>
+            <h3 class="text-2xl font-extrabold text-[#2D033B] mb-2">Recuperación y Tiempos</h3>
+            
+            <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 mb-4 text-left">
+                <h4 class="font-bold text-[#810CA8] mb-1">Recuperación post-tratamiento</h4>
+                <p class="text-sm text-gray-600">Tras el tratamiento <b>se puede hacer vida normal</b>, aunque el especialista puede indicar algunos cuidados especiales en función de cada caso clínico particular.</p>
+            </div>
+            <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 text-left">
+                <h4 class="font-bold text-[#810CA8] mb-1">Tiempo de Espera</h4>
+                <p class="text-sm text-gray-600">No es posible determinar el número exacto de sesiones necesarias con antelación para todos los pacientes. <b>Todo depende de la evolución de cada caso en particular.</b></p>
+            </div>
+            
+            <div class="mt-6"><button onclick="closeModal('modal-recuperacion')" class="px-6 py-2 bg-gray-900 text-white rounded-full text-sm font-bold">Entendido</button></div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Bibliografía -->
+    <div id="modal-bibliografia" class="fixed inset-0 z-[100] modal-overlay flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-[#2D033B]/80 backdrop-blur-md" onclick="closeModal('modal-bibliografia')"></div>
+        <div class="bg-white rounded-[2rem] w-full max-w-4xl max-h-[85vh] overflow-y-auto relative z-10 shadow-2xl modal-content p-8">
+            <button onclick="closeModal('modal-bibliografia')" class="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h3 class="text-3xl font-extrabold text-[#2D033B] mb-6 border-b border-gray-200 pb-4"><i class="fa-solid fa-book text-[#810CA8] mr-2"></i> Referencias Bibliográficas</h3>
+            
+            <ol class="list-decimal list-inside space-y-4 text-xs md:text-sm text-gray-600 pr-4">
+                <li>Tejal Waghe 1, Neema Acharya 1, Megha Karnik 1, Shazia Mohammad 1, Nidhi A Patel 1, Rinkle Gemnani. Función del plasma rico en plaquetas en el síndrome genitourinario de la menopausia.</li>
+                <li>Malgorzata M. et al., 2020. The role of diet and probiotics in prevention and treatment of bacterial vaginosis and vulvovaginal candidiasis in adolescent girls and non-pregnant women.</li>
+                <li>Waghe T, Acharya N, Karnik M, Mohammad S, Patel NA, Gemnani R. Role of Platelet-Rich Plasma in Genitourinary Syndrome of Menopause. Cureus. 2024 Jan 31;16(1):e53316.</li>
+                <li>Casella, R., et al. (2021). "Platelet-Rich Plasma for Female Sexual Dysfunction: A Systematic Review." Sexual Medicine Reviews, 9(3), 418-428.</li>
+                <li>Ciećkiewicz, F., et al. (2022). "Plasma Rico en Plaquetas en Ginecología: descubrimientos no descubiertos (revisión)." International Journal of Environmental Research and Public Health; 19 (9): 5284.</li>
+                <li>Constantine, S., et al. "Platelet-Rich Plasma in the Treatment of Vulvar Lichen Sclerosus: A Randomized Controlled Trial." Obstetrics & Gynecology, vol. 134, no. 6, 2019, pp. 1198-1205.</li>
+                <li>Hersant, B., et al. (2023). "Efficacy of Platelet-Rich Plasma in Vulvovaginal Atrophy: A Randomized Controlled Trial." Journal of Women's Health, 32(5), 567-575.</li>
+                <li>Herskovitz, P., et al. "Platelet-rich plasma for vulvovaginal atrophy: a systematic review." Journal of Women's Health, vol. 29, no. 10, 2020, pp. 1333-1342.</li>
+                <li>Kellog-Spadt, S., et al (2021). "Treatment of vulvodynia (vulvar paint of unknown cause). Uptodate [internet].</li>
+                <li>Kim, Y. H., et al. "Effect of platelet-rich plasma on stress urinary incontinence: a systematic review and meta-analysis." International Urogynecology Journal, vol. 32, no. 7, 2021, pp. 1779-1789.</li>
+                <li>Méndez-Abad, V., et al. (2020). "Plasma Rico en Plaquetas en Ginecología Estética y Regenerativa." Revista de Ginecología y Obstetricia de México, 88(10), 653-662.</li>
+                <li>Moro, F., et al. "Platelet-Rich Plasma in Gynecological Disorders: A Systematic Review." European Journal of Obstetrics & Gynecology and Reproductive Biology, vol. 270, 2022, pp. 147-156.</li>
+                <li>Runels, C., et al. (2022). "A Pilot Study of Platelet-Rich Plasma for Stress Urinary Incontinence." Journal of Regenerative Medicine, 11(2), 123-130.</li>
+                <li>Runels, C., et al. "The O-Shot for female sexual dysfunction: a pilot study." Journal of Sexual Medicine, vol. 11, no. 2, 2014, pp. 303-305.</li>
+                <li>Smith, P. & Centeno, C. (2022). "Mechanism of Action of Platelet-Rich Plasma: A Narrative Review." Journal of Clinical Orthopaedics and Trauma, 26, 101783.</li>
+            </ol>
+            <div class="mt-8 pt-6 border-t border-gray-200 text-right"><button onclick="closeModal('modal-bibliografia')" class="px-8 py-3 bg-[#2D033B] hover:bg-[#810CA8] transition-colors text-white rounded-full text-sm font-bold">Cerrar Bibliografía</button></div>
+        </div>
+    </div>
+
+    <!-- Funciones para los Modales -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Cierra modales con la tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const activeModals = document.querySelectorAll('.modal-overlay.active');
+                activeModals.forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                });
+            }
+        });
+    </script>
+
+    <!-- Interactive Scripts General -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
